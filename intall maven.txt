@@ -1,0 +1,1 @@
+set MAVEN_HOME path to this maven folder
