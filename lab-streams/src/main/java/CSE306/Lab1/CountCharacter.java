@@ -8,7 +8,7 @@ public class CountCharacter {
         InputStream inputStream = new FileInputStream(file);
 
         int count = 0;
-        while (inputStream.read() >= 0) {
+        while (inputStream.read() != -1) {
             count++;
         }
         inputStream.close();
