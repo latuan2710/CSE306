@@ -20,9 +20,8 @@ public class NetworkInterceLoopBack {
             }
 
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-
             while (interfaces.hasMoreElements()) {
-                NetworkInterface ni2 = interfaces.nextElement();
+                NetworkInterface ni2 = interfaces.nextElement();    
                 System.out.println(ni2);
             }
         } catch (UnknownHostException e) {
