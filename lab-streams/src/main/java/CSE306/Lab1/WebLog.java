@@ -11,8 +11,8 @@ public class WebLog {
             Reader reader = new InputStreamReader(new FileInputStream(new File(file)), "UTF-8");
             BufferedReader br = new BufferedReader(reader);
 
-            while (br.ready()) {
-                String entry = br.readLine();
+            String entry = "";
+            while ((entry = br.readLine()) != null) {
                 int index = entry.indexOf(" ");
                 String ip = entry.substring(0, index);
 
