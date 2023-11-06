@@ -1,6 +1,6 @@
 package CSE306.Lab1;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
 
 public class LowPortScanner {
