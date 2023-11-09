@@ -11,7 +11,7 @@ public class Telehack {
 
     public static void main(String[] args) {
         Socket socket = null;
-        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         try {
             socket = new Socket(SERVER, PORT);
@@ -45,7 +45,7 @@ public class Telehack {
             }
 
             while (true) {
-                String word = sc.nextLine();
+                String word = br.readLine();
                 if (word.equals("quit"))
                     break;
                 define(writer, reader, word);
@@ -56,7 +56,7 @@ public class Telehack {
         } finally {
             if (socket != null) {
                 try {
-                    sc.close();
+                    br.close();
                     socket.close();
                 } catch (IOException ex) {
                     System.err.println(ex);
