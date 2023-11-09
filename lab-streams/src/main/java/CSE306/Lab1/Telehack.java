@@ -39,7 +39,7 @@ public class Telehack {
             String line = "";
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
-                if (line.equals("")) {
+                if (line.isEmpty()) {
                     break;
                 }
             }
@@ -74,7 +74,7 @@ public class Telehack {
             int count = 0;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
-                if (line.equals("")) {
+                if (line.isEmpty()) {
                     if (count == 0) {
                         count++;
                         continue;
