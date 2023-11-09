@@ -47,7 +47,9 @@ public class Telehack {
                 String word = br.readLine();
                 if (word.equals("quit"))
                     break;
-                readEliza(writer, reader, word);
+                // readEliza(writer, reader, word);
+                readEliza2(writer, reader, word);
+                System.out.println("(Eliza)");
             }
 
         } catch (IOException ex) {
@@ -61,6 +63,44 @@ public class Telehack {
                     System.err.println(ex);
                 }
             }
+        }
+    }
+
+    private static void readFirst(Writer writer, BufferedReader reader, String word) {
+        try {
+            writer.write(word + "\r\n");
+            writer.flush();
+
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+                if (line.isEmpty()) {
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    }
+
+    private static void readFirst2(Writer writer, BufferedReader reader, String word) {
+        try {
+            writer.write(word + "\r\n");
+            writer.flush();
+
+            int c;
+            int count = 0;
+            while ((c = reader.read()) != -1) {
+                if ((char) c == '\r') {
+                    if (count == 2) {
+                        break;
+                    }
+                    count++;
+                }
+                System.out.print((char) c);
+            }
+        } catch (IOException e) {
+            System.err.println(e);
         }
     }
 
@@ -81,10 +121,30 @@ public class Telehack {
                     break;
                 }
             }
-
         } catch (IOException e) {
             System.err.println(e);
         }
+    }
 
+    private static void readEliza2(Writer writer, BufferedReader reader, String word) {
+        try {
+            writer.write(word + "\r\n");
+            writer.flush();
+
+            int c;
+            int count = 0;
+            while ((c = reader.read()) != -1) {
+                if ((char) c == '\r') {
+                    if (count == 3) {
+                        break;
+                    }
+                    count++;
+                }
+                if (count == 2)
+                    System.out.print((char) c);
+            }
+        } catch (IOException e) {
+            System.err.println(e);
+        }
     }
 }
