@@ -26,6 +26,12 @@
       <artifactId>commons-codec</artifactId>
       <version>1.15</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.googlecode.soundlibs/jlayer -->
+    <dependency>
+      <groupId>com.googlecode.soundlibs</groupId>
+      <artifactId>jlayer</artifactId>
+      <version>1.0.1-2</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
