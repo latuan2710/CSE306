@@ -35,13 +35,7 @@ public class Telehack {
 
             writer.write("eliza \r\n");
             writer.flush();
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-                if (line.isEmpty()) {
-                    break;
-                }
-            }
+            readFirst(writer, reader, "");
 
             while (true) {
                 String word = br.readLine();
