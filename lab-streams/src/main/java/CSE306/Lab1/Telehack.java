@@ -2,7 +2,6 @@ package CSE306.Lab1;
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 
 public class Telehack {
     public static final String SERVER = "telehack.com";
@@ -48,7 +47,7 @@ public class Telehack {
                 String word = br.readLine();
                 if (word.equals("quit"))
                     break;
-                define(writer, reader, word);
+                readEliza(writer, reader, word);
             }
 
         } catch (IOException ex) {
@@ -65,7 +64,7 @@ public class Telehack {
         }
     }
 
-    private static void define(Writer writer, BufferedReader reader, String word) {
+    private static void readEliza(Writer writer, BufferedReader reader, String word) {
         try {
             writer.write(word + "\r\n");
             writer.flush();
