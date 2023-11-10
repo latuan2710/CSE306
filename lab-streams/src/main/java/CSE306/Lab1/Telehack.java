@@ -34,6 +34,7 @@ public class Telehack {
             }
 
             writer.write("eliza \r\n");
+            
             writer.flush();
             readFirst(writer, reader, "");
 
