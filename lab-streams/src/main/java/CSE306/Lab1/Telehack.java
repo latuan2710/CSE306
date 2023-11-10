@@ -43,7 +43,7 @@ public class Telehack {
                     break;
                 // readEliza(writer, reader, word);
                 readEliza2(writer, reader, word);
-                System.out.println("(Eliza)");
+                System.out.println("(Eliza)\n");
             }
 
         } catch (IOException ex) {
