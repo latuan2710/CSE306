@@ -75,11 +75,11 @@ public class Telehack2 {
         }
     }
 
-    
     private static void readEliza(Writer writer, BufferedReader reader, String word) {
         try {
             writer.write(word + "\r\n");
             writer.flush();
+            reader.readLine();
 
             String line = "";
             int count = 0;
