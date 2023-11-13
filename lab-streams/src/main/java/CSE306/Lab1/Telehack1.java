@@ -3,7 +3,7 @@ package CSE306.Lab1;
 import java.io.*;
 import java.net.*;
 
-public class Telehack {
+public class Telehack1 {
     public static final String SERVER = "telehack.com";
     public static final int PORT = 23;
     public static final int TIMEOUT = 15000;
@@ -41,9 +41,7 @@ public class Telehack {
                 String word = br.readLine();
                 if (word.equals("quit"))
                     break;
-                // readEliza(writer, reader, word);
-                readEliza2(writer, reader, word);
-                System.out.println("(Eliza)\n");
+                readEliza(writer, reader, word);
             }
 
         } catch (IOException ex) {
@@ -61,23 +59,6 @@ public class Telehack {
     }
 
     private static void readFirst(Writer writer, BufferedReader reader, String word) {
-        try {
-            writer.write(word + "\r\n");
-            writer.flush();
-
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-                if (line.isEmpty()) {
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-    }
-
-    private static void readFirst2(Writer writer, BufferedReader reader, String word) {
         try {
             writer.write(word + "\r\n");
             writer.flush();
@@ -103,28 +84,6 @@ public class Telehack {
             writer.write(word + "\r\n");
             writer.flush();
 
-            String line = "";
-            int count = 0;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-                if (line.isEmpty()) {
-                    if (count == 0) {
-                        count++;
-                        continue;
-                    }
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-    }
-
-    private static void readEliza2(Writer writer, BufferedReader reader, String word) {
-        try {
-            writer.write(word + "\r\n");
-            writer.flush();
-
             int c;
             int count = 0;
             while ((c = reader.read()) != -1) {
@@ -137,6 +96,7 @@ public class Telehack {
                 if (count == 2)
                     System.out.print((char) c);
             }
+            System.out.println("(Eliza)\n");
         } catch (IOException e) {
             System.err.println(e);
         }
