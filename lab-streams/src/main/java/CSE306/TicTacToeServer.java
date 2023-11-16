@@ -19,6 +19,9 @@ public class TicTacToeServer {
         String[][] matrix = { { "1", "2", "3" }, { "4", "5", "6" }, { "7", "8", "9" } };
         List<Integer> numbers = new ArrayList<>();
 
+        List<Integer> test =  Arrays.asList(1, 3, 5, 6);
+        test.remove(3);
+        System.out.println(test);
         for (int i = 1; i <= 9; i++) {
             numbers.add(i);
         }
@@ -32,29 +35,34 @@ public class TicTacToeServer {
             InputStream in = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
 
-            out.write(display(matrix) + "\r\n");
+            out.write(displayBoard(matrix) + "\r\n");
             out.flush();
 
             String readLine;
             while (!((readLine = reader.readLine()).equals("quit"))) {
                 int client_input = Integer.valueOf(readLine);
-                numbers.remove(Integer.valueOf(client_input));
+
+                if (numbers.contains(client_input)) {
+                    out.write("It is invalid move!\r\n");
+                    out.flush();
+                } else {
+                    numbers.remove(Integer.valueOf(client_input));
+                    matrix = tickMatrix(matrix, client_input, "X");
+                }
 
                 if (numbers.isEmpty()) {
-                    matrix = tickMatrix(matrix, client_input, "x");
-                    out.write(display(matrix) + "\r\n");
+                    out.write(displayBoard(matrix) + "\r\n");
                     out.flush();
                     break;
                 }
 
                 int server_input = getRandomElement(numbers);
                 numbers.remove(Integer.valueOf(server_input));
-
-                matrix = tickMatrix(matrix, client_input, "X");
                 matrix = tickMatrix(matrix, server_input, "O");
 
-                out.write(display(matrix) + "\r\n");
+                out.write(displayBoard(matrix) + "\r\n");
                 out.flush();
+
             }
 
             connection.close();
@@ -66,7 +74,7 @@ public class TicTacToeServer {
         }
     }
 
-    static String display(String[][] matrix) {
+    static String displayBoard(String[][] matrix) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String[] row : matrix)
             stringBuilder.append(Arrays.toString(row) + "\n");

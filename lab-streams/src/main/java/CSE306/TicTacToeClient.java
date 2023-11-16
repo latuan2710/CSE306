@@ -36,13 +36,13 @@ public class TicTacToeClient {
                     if (count == 3)
                         break;
                 }
+
                 String input = terminal.readLine();
                 writer.write(input + "\r\n");
                 writer.flush();
-                
+
                 if (input.equals("quit"))
                     break;
-                
             }
 
             socket.close();
