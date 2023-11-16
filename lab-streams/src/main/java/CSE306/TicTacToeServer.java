@@ -1,0 +1,12 @@
+package CSE306;
+
+import java.util.Arrays;
+
+public class TicTacToeServer {
+    public static void main(String[] args) {
+        int mat[][] = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+
+        for (int[] row : mat)
+            System.out.println(Arrays.toString(row));
+    }
+}

@@ -1,4 +1,4 @@
-package CSE306.Lab1;
+package CSE306;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

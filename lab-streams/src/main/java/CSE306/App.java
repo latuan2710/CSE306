@@ -1,4 +1,4 @@
-package CSE306.Lab1;
+package CSE306;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
