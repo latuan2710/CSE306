@@ -28,7 +28,7 @@ public class TicTacToeClient {
             while (true) {
                 int count = 0;
                 String result = "";
-                while (!(result = reader.readLine()).contains("End")) {
+                while ((result = reader.readLine()) != null) {
                     System.out.println(result);
                     if (result.contains("]")) {
                         count++;
@@ -37,13 +37,14 @@ public class TicTacToeClient {
                         break;
                 }
                 String input = terminal.readLine();
+                writer.write(input + "\r\n");
+                writer.flush();
+                
                 if (input.equals("quit"))
                     break;
-
-                writer.write(Integer.valueOf(input) + "\r\n");
-                writer.flush();
+                
             }
-            
+
             socket.close();
 
         } catch (IOException e) {

@@ -36,7 +36,7 @@ public class TicTacToeServer {
             out.flush();
 
             String readLine;
-            while (!(readLine = reader.readLine()).equals("quit") && !numbers.isEmpty()) {
+            while (!((readLine = reader.readLine()).equals("quit"))) {
                 int client_input = Integer.valueOf(readLine);
                 numbers.remove(Integer.valueOf(client_input));
 
@@ -47,13 +47,12 @@ public class TicTacToeServer {
                     break;
                 }
 
-                int random_number = getRandomElement(numbers);
+                int server_input = getRandomElement(numbers);
+                numbers.remove(Integer.valueOf(server_input));
 
-                matrix = tickMatrix(matrix, client_input, "x");
-                matrix = tickMatrix(matrix, random_number, "o");
+                matrix = tickMatrix(matrix, client_input, "X");
+                matrix = tickMatrix(matrix, server_input, "O");
 
-                numbers.remove(Integer.valueOf(random_number));
-                System.out.println(numbers);
                 out.write(display(matrix) + "\r\n");
                 out.flush();
             }
