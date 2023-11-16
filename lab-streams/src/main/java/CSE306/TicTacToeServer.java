@@ -17,14 +17,7 @@ import java.util.Random;
 public class TicTacToeServer {
     public static void main(String[] args) {
         String[][] matrix = { { "1", "2", "3" }, { "4", "5", "6" }, { "7", "8", "9" } };
-        List<Integer> numbers = new ArrayList<>();
-
-        List<Integer> test =  Arrays.asList(1, 3, 5, 6);
-        test.remove(3);
-        System.out.println(test);
-        for (int i = 1; i <= 9; i++) {
-            numbers.add(i);
-        }
+        List<Integer> numbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
 
         try (ServerSocket server = new ServerSocket(13)) {
             Socket connection = server.accept();
