@@ -37,6 +37,7 @@ public class TicTacToeServer {
                 if (numbers.contains((Integer) client_input)) {
                     matrix = tickMatrix(matrix, client_input, "x");
                     numbers.remove((Integer) client_input);
+
                     if (checkWin(matrix, "x")) {
                         out.write(displayBoard(matrix) + "\n");
                         out.write("-----You Win!!-----\t\n\r");
@@ -53,6 +54,7 @@ public class TicTacToeServer {
                         int server_input = getRandomElement(numbers);
                         matrix = tickMatrix(matrix, server_input, "o");
                         numbers.remove((Integer) server_input);
+                        
                         if (checkWin(matrix, "o")) {
                             out.write(displayBoard(matrix) + "\n");
                             out.write("-----Server Win!!-----\t\n\r");
@@ -113,8 +115,6 @@ public class TicTacToeServer {
                 indexs.add(i);
             }
         }
-
-        System.out.println(indexs);
 
         int count = 0, i = 0, j = 0;
         while (count < 3) {
