@@ -25,24 +25,30 @@ public class TicTacToeClient {
             Writer writer = new OutputStreamWriter(out, "UTF-8");
             writer = new BufferedWriter(writer);
 
-            while (true) {
-                int count = 0;
-                String result = "";
-                while ((result = reader.readLine()) != null) {
-                    System.out.println(result);
-                    if (result.contains("]")) {
-                        count++;
-                    }
-                    if (count == 3)
+            String input = "";
+            while (!input.equals("quit")) {
+                int c;
+                boolean isClose = false;
+                while ((c = reader.read()) != -1) {
+                    System.out.print((char) c);
+
+                    if ((char) c == '\t') {
+                        isClose = true;
                         break;
+                    }
+
+                    if ((char) c == '\r') {
+                        break;
+                    }
                 }
 
-                String input = terminal.readLine();
+                if (isClose) {
+                    break;
+                }
+
+                input = terminal.readLine();
                 writer.write(input + "\r\n");
                 writer.flush();
-
-                if (input.equals("quit"))
-                    break;
             }
 
             socket.close();
