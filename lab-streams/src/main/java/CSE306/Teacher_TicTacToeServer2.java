@@ -3,7 +3,7 @@ package CSE306;
 import java.io.*;
 import java.net.*;
 
-public class Teacher_TicTacToeServer {
+public class Teacher_TicTacToeServer2 {
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(10)) {
             while (true) {

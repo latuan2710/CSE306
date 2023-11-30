@@ -9,10 +9,18 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.text.ParseException;
 
-public class Teacher_TicTacToeClient {
+public class Teacher_TicTacToeClient2 {
     public static void main(String[] args) throws ParseException {
         String hostname = "localhost";
         Socket socket = null;
+        Teacher_Board board = null;
+
+        if (args[0].equals("left")) {
+            board = new Teacher_BoardLeft();
+        } else {
+            board = new Teacher_BoardRight();
+        }
+
         try {
             socket = new Socket(hostname, 10);
             socket.setSoTimeout(15000);
@@ -29,6 +37,7 @@ public class Teacher_TicTacToeClient {
 
             String move = terminal.readLine();
             while (!(move.equals("quit"))) {
+                bout.write(board.board);
                 bout.write(move + "\r\n");
                 bout.flush();
                 boolean flag = readBoard(bif, terminal, bout);
