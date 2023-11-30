@@ -2,5 +2,6 @@
     "java.configuration.updateBuildConfiguration": "disabled",
     "cSpell.enableFiletypes": [
         "java"
-    ]
+    ],
+    "php.version": "8.3"
 }
