@@ -25,11 +25,13 @@ public class Teacher_TicTacToeClient {
 
             BufferedReader terminal = new BufferedReader(new InputStreamReader(System.in));
 
+            writeStrategy(bout, args[0]);
+
             String move = terminal.readLine();
             while (!(move.equals("quit"))) {
                 bout.write(move + "\r\n");
                 bout.flush();
-                readBoard(bif);
+                readBoard(bif, terminal, bout);
                 move = terminal.readLine();
             }
             bout.write("quit" + "\r\n");
@@ -49,12 +51,25 @@ public class Teacher_TicTacToeClient {
         }
     }
 
-    static void readBoard(BufferedReader bif) {
+    private static void writeStrategy(BufferedWriter bout, String strategy) {
+        try {
+            bout.write(strategy + "\r\n");
+            bout.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void readBoard(BufferedReader bif, BufferedReader terminal, BufferedWriter bout) {
         try {
             String encodedBoard = bif.readLine();
             System.out.println(encodedBoard);
+            if (encodedBoard.contains("strategy")) {
+                String strategy = terminal.readLine();
+                bout.write(strategy + "\r\n");
+                bout.flush();
+            }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
