@@ -8,17 +8,22 @@ public class Teacher_TicTacToeServer {
         try (ServerSocket server = new ServerSocket(10)) {
             while (true) {
                 Socket connection = server.accept();
-                Teacher_TicTacToeServerThread serverThread = new Teacher_TicTacToeServerThread(connection);
-                serverThread.start();
+                try {
+                    ServerThread serverThread = new ServerThread(connection);
+                    serverThread.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    connection.close();
+                }
             }
         }
     }
 
-    static class Teacher_TicTacToeServerThread extends Thread {
+    static class ServerThread extends Thread {
 
         private Socket connection;
 
-        public Teacher_TicTacToeServerThread(Socket connection) {
+        public ServerThread(Socket connection) {
             this.connection = connection;
         }
 
@@ -36,15 +41,8 @@ public class Teacher_TicTacToeServer {
                 while (true) {
                     String move = in.readLine();
 
-                    if (move.equals("left")) {
-                        board = new Teacher_BoardLeft();
-                        continue;
-                    } else if (move.equals("right")) {
-                        board = new Teacher_BoardRight();
-                        continue;
-                    }
-
                     if (move.equals("quit")) {
+                        this.connection.close();
                         break;
                     } else {
                         int cell = Character.getNumericValue(move.charAt(0));
@@ -62,32 +60,28 @@ public class Teacher_TicTacToeServer {
                                             } else {
                                                 out.write(board.encodeBoard() + " *** ");
                                                 out.write("It's a draw!" + " *** ");
-                                                out.write("Let's play again!" + " *** ");
-                                                out.write("Input your strategy: " + "\r\n");
+                                                out.write("Let's play again!" + " \r\n ");
                                                 out.flush();
                                                 board.initialize();
                                             }
                                         } else {
                                             out.write(board.encodeBoard() + " *** ");
                                             out.write("I won!" + " *** ");
-                                            out.write("Let's play again!" + " *** ");
-                                            out.write("Input your strategy: " + "\r\n");
+                                            out.write("Let's play again!" + " \r\n ");
                                             out.flush();
                                             board.initialize();
                                         }
                                     } else {
                                         out.write(board.encodeBoard() + " *** ");
                                         out.write("It's a draw!" + " *** ");
-                                        out.write("Let's play again!" + " *** ");
-                                        out.write("Input your strategy: " + "\r\n");
+                                        out.write("Let's play again!" + " \r\n ");
                                         out.flush();
                                         board.initialize();
                                     }
                                 } else {
                                     out.write(board.encodeBoard() + " *** ");
                                     out.write("You won!" + " *** ");
-                                    out.write("Let's play again!" + " *** ");
-                                    out.write("Input your strategy: " + "\r\n");
+                                    out.write("Let's play again!" + " \r\n ");
                                     out.flush();
                                     board.initialize();
                                 }
@@ -107,10 +101,10 @@ public class Teacher_TicTacToeServer {
             }
         }
 
-        private Teacher_Board getStrategy(Teacher_Board board, String move) {
-            if (move.equals("left")) {
+        private Teacher_Board getStrategy(Teacher_Board board, String strategy) {
+            if (strategy.equals("left")) {
                 board = new Teacher_BoardLeft();
-            } else if (move.equals("right")) {
+            } else if (strategy.equals("right")) {
                 board = new Teacher_BoardRight();
             }
             return board;

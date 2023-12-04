@@ -3,7 +3,6 @@ package CSE306;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
@@ -16,12 +15,9 @@ public class Teacher_TicTacToeClient {
         try {
             socket = new Socket(hostname, 10);
             socket.setSoTimeout(15000);
-            InputStream in = socket.getInputStream();
-            InputStreamReader reader = new InputStreamReader(in);
-            BufferedReader bif = new BufferedReader(reader);
 
-            OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
-            BufferedWriter bout = new BufferedWriter(out);
+            BufferedReader bif = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedWriter bout = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
             BufferedReader terminal = new BufferedReader(new InputStreamReader(System.in));
 
@@ -31,16 +27,15 @@ public class Teacher_TicTacToeClient {
             while (!(move.equals("quit"))) {
                 bout.write(move + "\r\n");
                 bout.flush();
-                boolean flag = readBoard(bif, terminal, bout);
-                if (!flag)
-                    break;
-
+                readBoard(bif, terminal, bout);
                 move = terminal.readLine();
             }
             bout.write("quit" + "\r\n");
+            bout.flush();
 
+            socket.close();
         } catch (IOException ex) {
-            System.err.println(ex);
+            ex.printStackTrace();
         } finally {
             if (socket != null) {
                 try {
@@ -61,23 +56,12 @@ public class Teacher_TicTacToeClient {
         }
     }
 
-    static boolean readBoard(BufferedReader bif, BufferedReader terminal, BufferedWriter bout) {
+    static void readBoard(BufferedReader bif, BufferedReader terminal, BufferedWriter bout) {
         try {
             String encodedBoard = bif.readLine();
             System.out.println(encodedBoard);
-            if (encodedBoard.contains("strategy")) {
-                String strategy = terminal.readLine();
-
-                if (strategy.equals("quit"))
-                    return false;
-
-                bout.write(strategy + "\r\n");
-                bout.flush();
-            }
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 }
