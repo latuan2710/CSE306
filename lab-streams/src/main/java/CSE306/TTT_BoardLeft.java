@@ -1,6 +1,6 @@
 package CSE306;
 
-public class Teacher_BoardLeft extends Teacher_Board {
+public class TTT_BoardLeft extends TTT_Board {
 
     @Override
     public void makeMove() {

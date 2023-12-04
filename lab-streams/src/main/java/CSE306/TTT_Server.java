@@ -3,7 +3,7 @@ package CSE306;
 import java.io.*;
 import java.net.*;
 
-public class Teacher_TicTacToeServer {
+public class TTT_Server {
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(10)) {
             while (true) {
@@ -33,7 +33,7 @@ public class Teacher_TicTacToeServer {
                 Writer out = new OutputStreamWriter(connection.getOutputStream());
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-                Teacher_Board board = null;
+                TTT_Board board = null;
                 board = getStrategy(board, in.readLine());
 
                 board.initialize();
@@ -101,11 +101,11 @@ public class Teacher_TicTacToeServer {
             }
         }
 
-        private Teacher_Board getStrategy(Teacher_Board board, String strategy) {
+        private TTT_Board getStrategy(TTT_Board board, String strategy) {
             if (strategy.equals("left")) {
-                board = new Teacher_BoardLeft();
+                board = new TTT_BoardLeft();
             } else if (strategy.equals("right")) {
-                board = new Teacher_BoardRight();
+                board = new TTT_BoardRight();
             }
             return board;
         }
