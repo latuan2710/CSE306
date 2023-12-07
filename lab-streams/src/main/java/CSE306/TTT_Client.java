@@ -6,15 +6,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.text.ParseException;
 
 public class TTT_Client {
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
         String hostname = "localhost";
-        Socket socket = null;
         while (true) {
-            try {
-                socket = new Socket(hostname, 10);
+            try (Socket socket = new Socket(hostname, 10)) {
                 socket.setSoTimeout(15000);
 
                 BufferedReader bif = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -37,14 +34,6 @@ public class TTT_Client {
                 socket.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
-            } finally {
-                if (socket != null) {
-                    try {
-                        socket.close();
-                    } catch (IOException ex) {
-                        System.out.println("WHY");
-                    }
-                }
             }
         }
     }

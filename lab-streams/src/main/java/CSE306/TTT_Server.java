@@ -7,13 +7,9 @@ public class TTT_Server {
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(10)) {
             while (true) {
-                Socket connection = server.accept();
-                try {
+                try (Socket connection = server.accept()) {
                     ServerThread serverThread = new ServerThread(connection);
                     serverThread.start();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    connection.close();
                 }
             }
         }
