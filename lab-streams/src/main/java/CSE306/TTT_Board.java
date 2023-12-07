@@ -6,7 +6,6 @@ public abstract class TTT_Board {
             { 2, 5, 8 }, { 0, 4, 8 }, { 2, 4, 6 } };
 
     public TTT_Board() {
-        initialize();
     }
 
     public void initialize() {
@@ -66,6 +65,11 @@ public abstract class TTT_Board {
             builder.append(c).append('.');
         }
         return builder.toString();
+    }
+
+    public void setBoard(String boardString) {
+        boardString = boardString.replace(".", "");
+        this.board = boardString.toCharArray();
     }
 
 }

@@ -8,10 +8,12 @@ public class TTT_Server {
         try (ServerSocket server = new ServerSocket(10)) {
             while (true) {
                 try (Socket connection = server.accept()) {
-                    ServerThread serverThread = new ServerThread(connection);
+                    Thread serverThread = new ServerThread(connection);
                     serverThread.start();
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -30,9 +32,10 @@ public class TTT_Server {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
                 TTT_Board board = null;
-                board = getStrategy(board, in.readLine());
+                // board = getStrategy(board, in.readLine());
+                board = new TTT_BoardLeft();
 
-                board.initialize();
+                board.setBoard(in.readLine());
 
                 while (true) {
                     String move = in.readLine();
@@ -51,42 +54,30 @@ public class TTT_Server {
                                         board.makeMove();
                                         if (board.checkStatus('x') == 0) {
                                             if (board.checkBoard() == 0) {
-                                                out.write(board.encodeBoard() + "\r\n");
+                                                out.write("200#" + board.encodeBoard() + "\r\n");
                                                 out.flush();
                                             } else {
-                                                out.write(board.encodeBoard() + " *** ");
-                                                out.write("It's a draw!" + " *** ");
-                                                out.write("Let's play again!" + " \r\n ");
+                                                out.write("201#" + board.encodeBoard() + "\r\n");
                                                 out.flush();
-                                                board.initialize();
                                             }
                                         } else {
-                                            out.write(board.encodeBoard() + " *** ");
-                                            out.write("I won!" + " *** ");
-                                            out.write("Let's play again!" + " \r\n ");
+                                            out.write("202#" + board.encodeBoard() + "\r\n");
                                             out.flush();
-                                            board.initialize();
                                         }
                                     } else {
-                                        out.write(board.encodeBoard() + " *** ");
-                                        out.write("It's a draw!" + " *** ");
-                                        out.write("Let's play again!" + " \r\n ");
+                                        out.write("201#" + board.encodeBoard() + "\r\n");
                                         out.flush();
-                                        board.initialize();
                                     }
                                 } else {
-                                    out.write(board.encodeBoard() + " *** ");
-                                    out.write("You won!" + " *** ");
-                                    out.write("Let's play again!" + " \r\n ");
+                                    out.write("203#" + board.encodeBoard() + "\r\n");
                                     out.flush();
-                                    board.initialize();
                                 }
                             } else {
-                                out.write("Occupied cell!" + "\r\n");
+                                out.write("204#" + "\r\n");
                                 out.flush();
                             }
                         } else {
-                            out.write("Wrong input!" + "\r\n");
+                            out.write("205#" + "\r\n");
                             out.flush();
                         }
                     }
