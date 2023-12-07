@@ -7,10 +7,9 @@ public class TTT_Server {
     public static void main(String[] args) throws IOException {
         try (ServerSocket server = new ServerSocket(10)) {
             while (true) {
-                try (Socket connection = server.accept()) {
-                    Thread serverThread = new ServerThread(connection);
-                    serverThread.start();
-                }
+                Socket connection = server.accept();
+                ServerThread serverThread = new ServerThread(connection);
+                serverThread.start();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,8 +31,7 @@ public class TTT_Server {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
                 TTT_Board board = null;
-                // board = getStrategy(board, in.readLine());
-                board = new TTT_BoardLeft();
+                board = getStrategy(board, in.readLine());
 
                 board.setBoard(in.readLine());
 
@@ -73,11 +71,11 @@ public class TTT_Server {
                                     out.flush();
                                 }
                             } else {
-                                out.write("204#" + "\r\n");
+                                out.write("204# " + "\r\n");
                                 out.flush();
                             }
                         } else {
-                            out.write("205#" + "\r\n");
+                            out.write("205# " + "\r\n");
                             out.flush();
                         }
                     }

@@ -25,14 +25,14 @@ public class TTT_Client {
                 BufferedReader bif = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 BufferedWriter bout = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-                // bout.write(args[0] + "\r\n");
-                // bout.flush();
-
-                bout.write(board + "\n" + move + "\r\n");
+                bout.write(args[0] + "\r\n");
                 bout.flush();
 
-                // bout.write(move + "\r\n");
-                // bout.flush();
+                bout.write(board + "\r\n");
+                bout.flush();
+
+                bout.write(move + "\r\n");
+                bout.flush();
 
                 readBoard(bif);
 
@@ -41,6 +41,7 @@ public class TTT_Client {
                 socket.close();
 
                 move = terminal.readLine();
+                socket.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,10 +72,10 @@ public class TTT_Client {
                     System.out.println(new_board + "You won! *** Let's play again! ***");
                     break;
                 case "204":
-                    System.out.println("Occupied cell!");
+                    System.out.println(board + "Occupied cell!");
                     break;
                 case "205":
-                    System.out.println("Wrong input!");
+                    System.out.println(board + "Wrong input!");
                     break;
                 default:
                     break;
